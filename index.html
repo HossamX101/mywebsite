@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DarkopLOL101</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #000;
+      color: #66FF66;
+      line-height: 1.6;
+    }
+    a {
+      color: #88FF88;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    header, section, footer {
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    header {
+      text-align: center;
+      border-bottom: 1px solid #333;
+    }
+    section {
+      border-bottom: 1px solid #333;
+      margin-top: 20px;
+    }
+    h1, h2, h3 {
+      color: #A0FFA0;
+      margin-bottom: 10px;
+    }
+    .links li, .rules li, .server-info li {
+      margin: 8px 0;
+    }
+    .quiz-container {
+      background: #111;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    .quiz-buttons button {
+      background: #007700;
+      border: none;
+      color: #fff;
+      padding: 8px 16px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .quiz-buttons button:hover {
+      background: #005500;
+    }
+    #feedback {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>DarkopLOL101</h1>
+    <p>مرحبًا بكم في موقع DarkopLOL101 الرسمي!</p>
+  </header>
+
+  <section id="links">
+    <h2>روابطنا</h2>
+    <ul class="links">
+      <li>اليوتيوب: <a href="https://www.youtube.com/@DarkopLOL101" target="_blank">DarkopLOL101</a></li>
+      <li>سيرفر الديسكورد: <a href="https://discord.gg/gppbtn9taZ" target="_blank">انضم الآن</a></li>
+      <li>القناة الثانية: <a href="https://www.youtube.com/@DL101Network" target="_blank">DL101Network</a></li>
+      <li>الباي بال: <a href="https://www.paypal.com/paypalme/amer317667" target="_blank">تبرع عبر PayPal</a></li>
+    </ul>
+  </section>
+
+  <section id="server-info">
+    <h2>معلومات سيرفر ماين كرافت</h2>
+    <h3>قوانين السيرفر</h3>
+    <ul class="rules">
+      <li>1 - احترام الجميع: يُمنع تمامًا استخدام أي عبارات مسيئة أو التلميح إليها.</li>
+      <li>2 - حماية اللعبة: يُحظر أي تصرفات تضر بالآخرين أو تُفسد تجربة اللعب.</li>
+      <li>3 - التبليغ عن المخالفات: في حال ملاحظة أي استخدام للهاكر أو الغش، يُرجى التبليغ فورًا للإدارة.</li>
+      <li>4 - تجنب السبام: يُمنع إرسال الرسائل المتكررة أو غير الضرورية، حيث قد يؤدي ذلك إلى حظرك تلقائيًا.</li>
+    </ul>
+    <h3>العناوين والبورت</h3>
+    <ul class="server-info">
+      <li>ماين كرافت الجافا: <strong>147.185.221.27:56446</strong></li>
+      <li>ماين كرافت بيدروك: <strong>147.185.221.26</strong></li>
+      <li>البورت: <strong>4752</strong></li>
+    </ul>
+  </section>
+
+  <section id="quiz">
+    <h2>قسم الأسئلة في لعبة ماين كرافت</h2>
+    <div class="quiz-container">
+      <p id="question">تحميل السؤال...</p>
+      <div class="quiz-buttons">
+        <button onclick="checkAnswer(true)">صحيح</button>
+        <button onclick="checkAnswer(false)">خاطئ</button>
+      </div>
+      <p id="feedback"></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 DarkopLOL101. جميع الحقوق محفوظة.</p>
+  </footer>
+
+  <script>
+    const questions = [
+      { text: "ما اسم العالم الجديد الذي أضيف في تحديث Caves and Cliffs؟", answer: false },
+      { text: "ما هي آلية عمل Beacon؟", answer: true },
+      { text: "كم تحتاج من الزجاج لصنع End Crystal؟", answer: true },
+      { text: "كيف تصنع 'Potion of Invisibility'؟", answer: true },
+      { text: "ما هي أسرع وسيلة انتقال في اللعبة؟", answer: true },
+      { text: "كم عدد المراحل لتطوير القروي؟", answer: true },
+      { text: "كيف تعمل الزراعة الأوتوماتيكية باستخدام Redstone؟", answer: true },
+      { text: "ما اسم الموسيقى السرية في أسطوانة Disc 11؟", answer: true },
+      { text: "كيف تصنع مزرعة XP باستخدام Spawner؟", answer: true },
+      { text: "ما اسم السلاح الذي يعطيك تأثير Wither؟", answer: true },
+      { text: "ما هو الحد الأقصى لتأثير Fortune؟", answer: true },
+      { text: "ما هي طريقة جمع الجليد الأزرق؟", answer: true },
+      { text: "ما اسم الأمر الذي يستخدم لاستدعاء البرق؟", answer: true },
+      { text: "ما الفرق بين Fortune و Silk Touch؟", answer: true },
+      { text: "كم عدد أنواع التعويذات للأسلحة؟", answer: false },
+      { text: "ما هي كتلة الـShulker وما فائدتها؟", answer: true },
+      { text: "ما اسم الأمر الذي يستخدم لتغيير الطقس؟", answer: true },
+      { text: "كيف تتجنب فقدان الأدوات عند الموت؟", answer: true },
+      { text: "ما اسم العدو الذي يستخدم القوس ويمتلك قبعة؟", answer: true },
+      { text: "ما هو الحد الأقصى للارتفاع في ماينكرافت؟", answer: true },
+      { text: "ما هو أقصى عمق يمكنك النزول إليه في التحديث الجديد؟", answer: true },
+      { text: "كيف تصنع آلة نسخ الخرائط؟", answer: true },
+      { text: "كيف تجعل القروي يتحول إلى زومبي ثم تعيده؟", answer: true },
+      { text: "ما هو تأثير تعويذة Curse of Binding؟", answer: true },
+      { text: "ما هو الأمر لجعل اللاعب لا يموت (God mode)؟", answer: true },
+      { text: "ما اسم الأداة التي تنقل العناصر تلقائيًا بين الصناديق؟", answer: true },
+      { text: "ما هو الوحش الوحيد الذي لا يحترق في الشمس؟", answer: true },
+      { text: "ما اسم التحديث الذي أضاف الـWarden؟", answer: true },
+      { text: "ما اسم الزهرة التي تسبب تأثير Wither؟", answer: true },
+      { text: "ما اسم البلوك الذي يصدر إشارات موسيقية؟", answer: true },
+      { text: "ما هو الأمر لإعطاء اللاعب عنصر معين؟", answer: true },
+      { text: "ما اسم الكتلة التي تعيد تسمية الأدوات؟", answer: true },
+      { text: "ما اسم نسخة ماينكرافت للهواتف؟", answer: true },
+      { text: "ما هو الحد الأقصى من اللاعبين في سيرفر؟", answer: false },
+      { text: "ما هو الاختلاف بين Java و Bedrock؟", answer: true },
+      { text: "ما اسم الخاصية لكتم صوت الوحوش؟", answer: true },
+      { text: "ما اسم البلوك في Note Blocks للأصوات؟", answer: true },
+      { text: "ما اسم طريقة التحديث لإضافة مودات؟", answer: true },
+      { text: "ما اسم البيئة للشجيرات الثلجية؟", answer: true },
+      { text: "كم عدد Biomes في اللعبة؟", answer: true }
+    ];
+    let current = 0;
+    function showQuestion() {
+      if (current >= questions.length) current = 0;
+      document.getElementById("question").innerText = questions[current].text;
+      document.getElementById("feedback").innerText = "";
+    }
+    function checkAnswer(userAnswer) {
+      const correct = questions[current].answer;
+      const feedback = document.getElementById("feedback");
+      if (userAnswer === correct) {
+        feedback.innerText = "✅ إجابة صحيحة!";
+        feedback.style.color = "#66FF66";
+      } else {
+        feedback.innerText = "❌ إجابة خاطئة!";
+        feedback.style.color = "#FF6666";
+      }
+      current++;
+      setTimeout(showQuestion, 1500);
+    }
+    window.onload = showQuestion;
+  </script>
+</body>
+</html>
