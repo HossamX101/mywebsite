@@ -1,180 +1,168 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DarkopLOL101</title>
+  <title>DarkopLOL101 - Quiz Minecraft</title>
   <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #000;
-      color: #66FF66;
-      line-height: 1.6;
-    }
-    a {
-      color: #88FF88;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    header, section, footer {
-      padding: 20px;
-      max-width: 800px;
-      margin: auto;
-    }
-    header {
-      text-align: center;
-      border-bottom: 1px solid #333;
-    }
-    section {
-      border-bottom: 1px solid #333;
-      margin-top: 20px;
-    }
-    h1, h2, h3 {
-      color: #A0FFA0;
-      margin-bottom: 10px;
-    }
-    .links li, .rules li, .server-info li {
-      margin: 8px 0;
-    }
-    .quiz-container {
-      background: #111;
-      padding: 15px;
-      border-radius: 8px;
-    }
-    .quiz-buttons button {
-      background: #007700;
-      border: none;
-      color: #fff;
-      padding: 8px 16px;
-      margin: 5px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    .quiz-buttons button:hover {
-      background: #005500;
-    }
-    #feedback {
-      margin-top: 10px;
-      font-weight: bold;
-    }
+    body { margin:0; font-family:"Segoe UI",sans-serif; background-color:#121212; color:#66FF66; }
+    header, section, footer { padding:20px; max-width:800px; margin:auto; }
+    header { text-align:center; border-bottom:1px solid #333; }
+    h1,h2,h3 { color:#A0FFA0; }
+    nav ul { list-style:none; padding:0; display:flex; justify-content:center; gap:10px; }
+    nav a img { width:32px; height:32px; }
+    .hidden { display:none; }
+    .box { background:#111; margin-top:20px; padding:15px; border-radius:8px; }
+    input, button, textarea { width:100%; padding:8px; margin:5px 0; border-radius:4px; border:1px solid #333; background:#222; color:#fff; }
+    button { cursor:pointer; background:#007700; border:none; }
+    button:hover { background:#005500; }
+    .options button { display:block; width:100%; margin:5px 0; padding:10px; border:none; border-radius:4px; background:#007700; color:#fff; text-align:right; }
+    .options button:hover { background:#005500; }
+    #feedback, #commentFeedback { font-weight:bold; margin-top:10px; }
+    #score { margin-top:10px; }
+    .leaders, .comments-list { list-style:none; padding:0; }
+    .leaders li, .comments-list li { border-bottom:1px solid #333; padding:8px 0; }
+    .avatar { width:32px; vertical-align:middle; margin-left:8px; }
   </style>
 </head>
 <body>
   <header>
     <h1>DarkopLOL101</h1>
     <p>مرحبًا بكم في موقع DarkopLOL101 الرسمي!</p>
+    <nav id="main-nav" class="hidden">
+      <ul>
+        <li><a href="https://www.youtube.com/@DarkopLOL101" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube"></a></li>
+        <li><a href="https://discord.gg/gppbtn9taZ" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Discord_logo.svg" alt="Discord"></a></li>
+        <li><a href="https://www.paypal.com/paypalme/amer317667" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal"></a></li>
+      </ul>
+    </nav>
   </header>
 
-  <section id="links">
-    <h2>روابطنا</h2>
-    <ul class="links">
-      <li>اليوتيوب: <a href="https://www.youtube.com/@DarkopLOL101" target="_blank">DarkopLOL101</a></li>
-      <li>سيرفر الديسكورد: <a href="https://discord.gg/gppbtn9taZ" target="_blank">انضم الآن</a></li>
-      <li>القناة الثانية: <a href="https://www.youtube.com/@DL101Network" target="_blank">DL101Network</a></li>
-      <li>الباي بال: <a href="https://www.paypal.com/paypalme/amer317667" target="_blank">تبرع عبر PayPal</a></li>
-    </ul>
+  <!-- صوت XP -->
+  <audio id="xpSound" src="https://cdn.jsdelivr.net/gh/alejandroruizg/minecraft-sounds/mp3/entity.experience_orb.pickup.mp3" preload="auto"></audio>
+
+  <!-- تسجيل / دخول -->
+  <section id="login-section" class="box">
+    <h2>تسجيل / دخول</h2>
+    <input type="text" id="username" placeholder="اسم المستخدم">
+    <input type="password" id="password" placeholder="كلمة المرور">
+    <button onclick="login()">تسجيل / دخول</button>
+    <p><a href="#" onclick="alert('يرجى التواصل مع صاحب الموقع لاستعادة كلمة المرور.')">هل نسيت كلمة المرور؟</a></p>
   </section>
 
-  <section id="server-info">
+  <!-- معلومات السيرفر -->
+  <section id="server-info" class="box hidden">
     <h2>معلومات سيرفر ماين كرافت</h2>
-    <h3>قوانين السيرفر</h3>
-    <ul class="rules">
-      <li>1 - احترام الجميع: يُمنع تمامًا استخدام أي عبارات مسيئة أو التلميح إليها.</li>
-      <li>2 - حماية اللعبة: يُحظر أي تصرفات تضر بالآخرين أو تُفسد تجربة اللعب.</li>
-      <li>3 - التبليغ عن المخالفات: في حال ملاحظة أي استخدام للهاكر أو الغش، يُرجى التبليغ فورًا للإدارة.</li>
-      <li>4 - تجنب السبام: يُمنع إرسال الرسائل المتكررة أو غير الضرورية، حيث قد يؤدي ذلك إلى حظرك تلقائيًا.</li>
-    </ul>
-    <h3>العناوين والبورت</h3>
-    <ul class="server-info">
-      <li>ماين كرافت الجافا: <strong>147.185.221.27:56446</strong></li>
-      <li>ماين كرافت بيدروك: <strong>147.185.221.26</strong></li>
-      <li>البورت: <strong>4752</strong></li>
+    <ul>
+      <li>Java: 147.185.221.27:56446</li>
+      <li>Bedrock: 147.185.221.26</li>
+      <li>Port: 4752</li>
     </ul>
   </section>
 
-  <section id="quiz">
+  <!-- المسابقة -->
+  <section id="quiz" class="box hidden">
     <h2>قسم الأسئلة في لعبة ماين كرافت</h2>
-    <div class="quiz-container">
-      <p id="question">تحميل السؤال...</p>
-      <div class="quiz-buttons">
-        <button onclick="checkAnswer(true)">صحيح</button>
-        <button onclick="checkAnswer(false)">خاطئ</button>
-      </div>
-      <p id="feedback"></p>
-    </div>
+    <p id="question"></p>
+    <div id="options" class="options"></div>
+    <p id="feedback"></p>
+    <p id="score"></p>
+  </section>
+
+  <!-- لوحة المتصدرين -->
+  <section id="leaderboard" class="box hidden">
+    <h2>لوحة المتصدرين</h2>
+    <ul class="leaders" id="leadersList"></ul>
+  </section>
+
+  <!-- التعليقات -->
+  <section id="comments" class="box hidden">
+    <h2>التعليقات</h2>
+    <textarea id="commentText" placeholder="أضف تعليقك..."></textarea>
+    <button onclick="postComment()">نشر</button>
+    <p id="commentFeedback"></p>
+    <ul class="comments-list" id="commentsList"></ul>
   </section>
 
   <footer>
     <p>&copy; 2025 DarkopLOL101. جميع الحقوق محفوظة.</p>
   </footer>
 
-  <script>
-    const questions = [
-      { text: "ما اسم العالم الجديد الذي أضيف في تحديث Caves and Cliffs؟", answer: false },
-      { text: "ما هي آلية عمل Beacon؟", answer: true },
-      { text: "كم تحتاج من الزجاج لصنع End Crystal؟", answer: true },
-      { text: "كيف تصنع 'Potion of Invisibility'؟", answer: true },
-      { text: "ما هي أسرع وسيلة انتقال في اللعبة؟", answer: true },
-      { text: "كم عدد المراحل لتطوير القروي؟", answer: true },
-      { text: "كيف تعمل الزراعة الأوتوماتيكية باستخدام Redstone؟", answer: true },
-      { text: "ما اسم الموسيقى السرية في أسطوانة Disc 11؟", answer: true },
-      { text: "كيف تصنع مزرعة XP باستخدام Spawner؟", answer: true },
-      { text: "ما اسم السلاح الذي يعطيك تأثير Wither؟", answer: true },
-      { text: "ما هو الحد الأقصى لتأثير Fortune؟", answer: true },
-      { text: "ما هي طريقة جمع الجليد الأزرق؟", answer: true },
-      { text: "ما اسم الأمر الذي يستخدم لاستدعاء البرق؟", answer: true },
-      { text: "ما الفرق بين Fortune و Silk Touch؟", answer: true },
-      { text: "كم عدد أنواع التعويذات للأسلحة؟", answer: false },
-      { text: "ما هي كتلة الـShulker وما فائدتها؟", answer: true },
-      { text: "ما اسم الأمر الذي يستخدم لتغيير الطقس؟", answer: true },
-      { text: "كيف تتجنب فقدان الأدوات عند الموت؟", answer: true },
-      { text: "ما اسم العدو الذي يستخدم القوس ويمتلك قبعة؟", answer: true },
-      { text: "ما هو الحد الأقصى للارتفاع في ماينكرافت؟", answer: true },
-      { text: "ما هو أقصى عمق يمكنك النزول إليه في التحديث الجديد؟", answer: true },
-      { text: "كيف تصنع آلة نسخ الخرائط؟", answer: true },
-      { text: "كيف تجعل القروي يتحول إلى زومبي ثم تعيده؟", answer: true },
-      { text: "ما هو تأثير تعويذة Curse of Binding؟", answer: true },
-      { text: "ما هو الأمر لجعل اللاعب لا يموت (God mode)؟", answer: true },
-      { text: "ما اسم الأداة التي تنقل العناصر تلقائيًا بين الصناديق؟", answer: true },
-      { text: "ما هو الوحش الوحيد الذي لا يحترق في الشمس؟", answer: true },
-      { text: "ما اسم التحديث الذي أضاف الـWarden؟", answer: true },
-      { text: "ما اسم الزهرة التي تسبب تأثير Wither؟", answer: true },
-      { text: "ما اسم البلوك الذي يصدر إشارات موسيقية؟", answer: true },
-      { text: "ما هو الأمر لإعطاء اللاعب عنصر معين؟", answer: true },
-      { text: "ما اسم الكتلة التي تعيد تسمية الأدوات؟", answer: true },
-      { text: "ما اسم نسخة ماينكرافت للهواتف؟", answer: true },
-      { text: "ما هو الحد الأقصى من اللاعبين في سيرفر؟", answer: false },
-      { text: "ما هو الاختلاف بين Java و Bedrock؟", answer: true },
-      { text: "ما اسم الخاصية لكتم صوت الوحوش؟", answer: true },
-      { text: "ما اسم البلوك في Note Blocks للأصوات؟", answer: true },
-      { text: "ما اسم طريقة التحديث لإضافة مودات؟", answer: true },
-      { text: "ما اسم البيئة للشجيرات الثلجية؟", answer: true },
-      { text: "كم عدد Biomes في اللعبة؟", answer: true }
-    ];
-    let current = 0;
-    function showQuestion() {
-      if (current >= questions.length) current = 0;
-      document.getElementById("question").innerText = questions[current].text;
-      document.getElementById("feedback").innerText = "";
-    }
-    function checkAnswer(userAnswer) {
-      const correct = questions[current].answer;
-      const feedback = document.getElementById("feedback");
-      if (userAnswer === correct) {
-        feedback.innerText = "✅ إجابة صحيحة!";
-        feedback.style.color = "#66FF66";
-      } else {
-        feedback.innerText = "❌ إجابة خاطئة!";
-        feedback.style.color = "#FF6666";
-      }
-      current++;
-      setTimeout(showQuestion, 1500);
-    }
-    window.onload = showQuestion;
-  </script>
+<script>
+  const questions = [
+    { text: "ما اسم العالم الجديد الذي أضيف في تحديث Caves and Cliffs؟", opts: ["The End","The Nether","The Void","لم يُضاف عالم جديد"], ans: 3 },
+    { text: "ما هي آلية عمل Beacon؟", opts: ["يصدر ضوءًا لاصطياد الوحوش","يمنح تأثيرات إيجابية عند بناء هرم البازلت","يمنح تأثيرات إيجابية عند بناء هرم المعادن","يطير لالتقاط الموارد"], ans: 2 },
+    { text: "كم تحتاج من الزجاج لصنع End Crystal؟", opts: ["7","5","3","1"], ans: 2 },
+    { text: "كيف تصنع Potion of Invisibility؟", opts: ["Golden Carrot","Fermented Spider Eye","Blaze Powder","Ghast Tear"], ans: 1 },
+    { text: "ما أسرع وسيلة انتقال؟", opts: ["Elytra+Rocket","حصان","قاروب","Minecart"], ans: 0 },
+    { text: "مراحل تطوير القروي؟", opts: ["3","4","5","6"], ans: 2 },
+    { text: "الزراعة الأوتوماتيكية؟", opts: ["Dispenser","Piston","Hopper","Observer+Piston"], ans: 3 },
+    { text: "الموسيقى السرية في Disc 11؟", opts: ["11","13","Stal","Hal"], ans: 0 },
+    { text: "مزرعة XP باستخدام Spawner؟", opts: ["Water Elevator","Manual","Dispenser","Blazing"], ans: 0 },
+    { text: "السلاح Wither؟", opts: ["درع","سيف","سهم","فأس"], ans: 1 },
+    { text: "الحد الأقصى Fortune؟", opts: ["III","IV","V","II"], ans: 0 },
+    { text: "جمع الجليد الأزرق؟", opts: ["عادي","Silk Touch","Fortune","Shears"], ans: 1 },
+    { text: "استدعاء البرق؟", opts: ["/summon lightning_bolt","/weather thunder","/summon thunder","/spawn lightning"], ans: 0 },
+    // ... ضع هنا باقي الأسئلة بتنسيق مماثل ...
+  ];
+
+  let current=0, score=0;
+
+  function login() {
+    const u=document.getElementById('username').value.trim();
+    const p=document.getElementById('password').value.trim();
+    if(!u||!p){ alert('الحقول مطلوبة'); return; }
+    let users=JSON.parse(localStorage.getItem('users')||'{}');
+    if(!users[u]) users[u]=p;
+    else if(users[u]!==p){ alert('كلمة مرور خاطئة'); return; }
+    localStorage.setItem('users',JSON.stringify(users));
+    localStorage.setItem('user',u);
+    document.getElementById('login-section').classList.add('hidden');
+    document.getElementById('main-nav').classList.remove('hidden');
+    ['server-info','quiz','leaderboard','comments'].forEach(id=>document.getElementById(id).classList.remove('hidden'));
+    showQuestion(); updateLeaderboard(); renderComments();
+  }
+
+  function showQuestion(){
+    if(current>=questions.length) return;
+    const q=questions[current];
+    document.getElementById('quiz').style.display='block';
+    document.getElementById('question').innerText=q.text;
+    const optsDiv=document.getElementById('options'); optsDiv.innerHTML='';
+    q.opts.forEach((opt,i)=>{ const b=document.createElement('button'); b.innerText=opt; b.onclick=()=>checkAnswer(i); optsDiv.appendChild(b); });
+    document.getElementById('score').innerText=`نقاطك: ${score}`;
+  }
+
+  function checkAnswer(i){
+    const fb=document.getElementById('feedback');
+    if(i===questions[current].ans){ score++; fb.innerText='✅ صحيح'; document.getElementById('xpSound').play(); }
+    else{ fb.innerText='❌ خاطئ'; }
+    updateLeaderboard(); current++; setTimeout(showQuestion,1000);
+  }
+
+  function updateLeaderboard(){
+    const user=localStorage.getItem('user');
+    const map=JSON.parse(localStorage.getItem('scores')||'{}'); map[user]=score; localStorage.setItem('scores',JSON.stringify(map));
+    const sorted=Object.entries(map).sort((a,b)=>b[1]-a[1]);
+    const ul=document.getElementById('leadersList'); ul.innerHTML='';
+    sorted.forEach(([u,pts])=>{ const li=document.createElement('li'); li.innerHTML=`<img class="avatar" src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/1/1b/Grass_Block_JE3_BE3.png"> ${u}: ${pts}`; ul.appendChild(li); });
+  }
+
+  function postComment(){
+    const txt=document.getElementById('commentText').value.trim();
+    if(!txt) return;
+    const user=localStorage.getItem('user');
+    const time=new Date().toLocaleString('ar-EG'); const ip=location.hostname;
+    const comments=JSON.parse(localStorage.getItem('comments')||'[]');
+    comments.push({user,text:txt,time,ip}); localStorage.setItem('comments',JSON.stringify(comments)); renderComments(); document.getElementById('commentText').value='';
+  }
+
+  function renderComments(){
+    const ul=document.getElementById('commentsList'); ul.innerHTML='';
+    JSON.parse(localStorage.getItem('comments')||'[]').forEach(c=>{ const li=document.createElement('li'); li.innerHTML=`<img class="avatar" src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/1/1b/Grass_Block_JE3_BE3.png"> <strong>${c.user}</strong> (${c.time} from ${c.ip}): ${c.text}`; ul.appendChild(li); });
+  }
+
+  window.onload=()=>{ if(localStorage.getItem('scores')) updateLeaderboard(); if(localStorage.getItem('comments')) renderComments(); };
+</script>
 </body>
 </html>
